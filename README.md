@@ -1,6 +1,8 @@
 # MCP Eval Website
 
-A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https://tanstarter.nize.ph/)
+A comprehensive evaluation platform for MCP Bench.
+
+## Tech Stack
 
 - [React 19](https://react.dev) + [React Compiler](https://react.dev/learn/react-compiler)
 - TanStack [Start](https://tanstack.com/start/latest) + [Router](https://tanstack.com/router/latest) + [Query](https://tanstack.com/query/latest)
@@ -8,13 +10,18 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 
 ## Getting Started
 
-We're using **pnpm** by default, but you can modify the scripts in [package.json](./package.json) to use your preferred package manager.
+### Prerequisites
 
-1. [Use this template](https://github.com/new?template_name=react-tanstarter&template_owner=dotnize) or clone this repository with gitpick:
+- Node.js 18+ 
+- pnpm (recommended) or npm/yarn
+
+### Installation
+
+1. Clone the repository:
 
    ```bash
-   npx gitpick dotnize/react-tanstarter myapp
-   cd myapp
+   git clone https://github.com/lobehub/mcp-eval-website.git
+   cd mcp-eval-website
    ```
 
 2. Install dependencies:
@@ -33,14 +40,17 @@ We're using **pnpm** by default, but you can modify the scripts in [package.json
 
    The development server should now be running at [http://localhost:3000](http://localhost:3000).
 
-## Issue watchlist
+## Features
 
-- [React Compiler docs](https://react.dev/learn/react-compiler), [Working Group](https://github.com/reactwg/react-compiler/discussions) - React Compiler is in RC.
-- https://github.com/TanStack/router/discussions/2863 - TanStack Start is in beta may still undergo major changes.
+- **Authentication Tests**: Multiple authentication flow evaluations
+- **Form Handling**: Comprehensive form interaction testing
+- **File Downloads**: Download functionality testing
+- **Data Extraction**: Content extraction and parsing tests
+- **Navigation**: Complex navigation pattern evaluations
 
-## Goodies
+## Development
 
-#### Scripts
+### Available Scripts
 
 These scripts in [package.json](./package.json#L5) use **pnpm** by default, but you can modify them to use your preferred package manager.
 
@@ -49,19 +59,49 @@ These scripts in [package.json](./package.json#L5) use **pnpm** by default, but 
   - **`check`** - Run all three above. (e.g. `pnpm check`)
 - **`deps`** - Selectively upgrade dependencies via taze.
 
-#### Utilities
+### Project Structure
 
-- [`theme-toggle.tsx`](./src/components/theme-toggle.tsx) - A simple component to toggle between light and dark mode. ([#7](https://github.com/dotnize/react-tanstarter/issues/7))
+```
+src/
+├── routes/
+│   ├── _layout.auth.*.tsx    # Authentication test routes
+│   ├── _layout.forms/         # Form handling tests
+│   ├── _layout.downloads.tsx  # Download tests
+│   ├── _layout.extraction.tsx # Data extraction tests
+│   └── _layout.navigation.tsx # Navigation tests
+├── components/
+│   └── ui/                    # Reusable UI components
+└── lib/
+    └── utils.ts               # Utility functions
+```
 
 ## Building for production
 
-Read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting) for information on how to deploy your TanStack Start app.
+### Deploy to Vercel
+
+This project is configured for Vercel deployment. To deploy:
+
+1. **Via Vercel Dashboard (Recommended)**
+   - Import your Git repository on [Vercel](https://vercel.com/new)
+   - Vercel will automatically detect the configuration and deploy your app
+
+2. **Via Vercel CLI**
+   ```bash
+   pnpm dlx vercel
+   ```
+
+The project includes:
+- `vite.config.ts` configured with `target: "vercel"`
+- `vercel.json` with proper build settings
+
+### Other Platforms
+
+For other deployment platforms, update the `target` in `vite.config.ts` and read the [hosting docs](https://tanstack.com/start/latest/docs/framework/react/hosting).
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-Code in this template is public domain via [Unlicense](./LICENSE). Feel free to remove or replace for your own project.
-
-## Also check out
-
-- [create-tsrouter-app](https://github.com/TanStack/create-tsrouter-app/tree/main/cli/create-tsrouter-app) - The official CLI tool from the TanStack team to create Router/Start applications.
-- [CarlosZiegler/fullstack-start-template](https://github.com/CarlosZiegler/fullstack-start-template) - A more batteries-included boilerplate that provides a solid foundation for building modern web apps.
+This project is licensed under the [Unlicense](./LICENSE).
