@@ -1,6 +1,6 @@
 # MCP Eval Website
 
-A comprehensive evaluation platform for MCP Bench
+A comprehensive evaluation platform for MCP Bench.
 
 ## Tech Stack
 
