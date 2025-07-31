@@ -16,6 +16,7 @@ import { Route as LayoutExtractionRouteImport } from "./routes/_layout.extractio
 import { Route as LayoutDownloadsRouteImport } from "./routes/_layout.downloads";
 import { Route as LayoutFormsIndexRouteImport } from "./routes/_layout/forms/index";
 import { Route as LayoutFormsResultRouteImport } from "./routes/_layout/forms/result";
+import { Route as LayoutAuthTurnstileRouteImport } from "./routes/_layout.auth.turnstile";
 import { Route as LayoutAuthFormRouteImport } from "./routes/_layout.auth.form";
 import { Route as LayoutAuthChallengeRouteImport } from "./routes/_layout.auth.challenge";
 import { Route as LayoutAuthBasicRouteImport } from "./routes/_layout.auth.basic";
@@ -54,6 +55,11 @@ const LayoutFormsResultRoute = LayoutFormsResultRouteImport.update({
   path: "/forms/result",
   getParentRoute: () => LayoutRoute,
 } as any);
+const LayoutAuthTurnstileRoute = LayoutAuthTurnstileRouteImport.update({
+  id: "/auth/turnstile",
+  path: "/auth/turnstile",
+  getParentRoute: () => LayoutRoute,
+} as any);
 const LayoutAuthFormRoute = LayoutAuthFormRouteImport.update({
   id: "/auth/form",
   path: "/auth/form",
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   "/auth/basic": typeof LayoutAuthBasicRoute;
   "/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/auth/form": typeof LayoutAuthFormRoute;
+  "/auth/turnstile": typeof LayoutAuthTurnstileRoute;
   "/forms/result": typeof LayoutFormsResultRoute;
   "/forms": typeof LayoutFormsIndexRoute;
 }
@@ -89,6 +96,7 @@ export interface FileRoutesByTo {
   "/auth/basic": typeof LayoutAuthBasicRoute;
   "/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/auth/form": typeof LayoutAuthFormRoute;
+  "/auth/turnstile": typeof LayoutAuthTurnstileRoute;
   "/forms/result": typeof LayoutFormsResultRoute;
   "/forms": typeof LayoutFormsIndexRoute;
 }
@@ -102,6 +110,7 @@ export interface FileRoutesById {
   "/_layout/auth/basic": typeof LayoutAuthBasicRoute;
   "/_layout/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/_layout/auth/form": typeof LayoutAuthFormRoute;
+  "/_layout/auth/turnstile": typeof LayoutAuthTurnstileRoute;
   "/_layout/forms/result": typeof LayoutFormsResultRoute;
   "/_layout/forms/": typeof LayoutFormsIndexRoute;
 }
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | "/auth/basic"
     | "/auth/challenge"
     | "/auth/form"
+    | "/auth/turnstile"
     | "/forms/result"
     | "/forms";
   fileRoutesByTo: FileRoutesByTo;
@@ -126,6 +136,7 @@ export interface FileRouteTypes {
     | "/auth/basic"
     | "/auth/challenge"
     | "/auth/form"
+    | "/auth/turnstile"
     | "/forms/result"
     | "/forms";
   id:
@@ -138,6 +149,7 @@ export interface FileRouteTypes {
     | "/_layout/auth/basic"
     | "/_layout/auth/challenge"
     | "/_layout/auth/form"
+    | "/_layout/auth/turnstile"
     | "/_layout/forms/result"
     | "/_layout/forms/";
   fileRoutesById: FileRoutesById;
@@ -198,6 +210,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutFormsResultRouteImport;
       parentRoute: typeof LayoutRoute;
     };
+    "/_layout/auth/turnstile": {
+      id: "/_layout/auth/turnstile";
+      path: "/auth/turnstile";
+      fullPath: "/auth/turnstile";
+      preLoaderRoute: typeof LayoutAuthTurnstileRouteImport;
+      parentRoute: typeof LayoutRoute;
+    };
     "/_layout/auth/form": {
       id: "/_layout/auth/form";
       path: "/auth/form";
@@ -229,6 +248,7 @@ interface LayoutRouteChildren {
   LayoutAuthBasicRoute: typeof LayoutAuthBasicRoute;
   LayoutAuthChallengeRoute: typeof LayoutAuthChallengeRoute;
   LayoutAuthFormRoute: typeof LayoutAuthFormRoute;
+  LayoutAuthTurnstileRoute: typeof LayoutAuthTurnstileRoute;
   LayoutFormsResultRoute: typeof LayoutFormsResultRoute;
   LayoutFormsIndexRoute: typeof LayoutFormsIndexRoute;
 }
@@ -240,6 +260,7 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAuthBasicRoute: LayoutAuthBasicRoute,
   LayoutAuthChallengeRoute: LayoutAuthChallengeRoute,
   LayoutAuthFormRoute: LayoutAuthFormRoute,
+  LayoutAuthTurnstileRoute: LayoutAuthTurnstileRoute,
   LayoutFormsResultRoute: LayoutFormsResultRoute,
   LayoutFormsIndexRoute: LayoutFormsIndexRoute,
 };
