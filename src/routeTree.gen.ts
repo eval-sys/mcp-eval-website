@@ -15,11 +15,11 @@ import { Route as LayoutNavigationRouteImport } from "./routes/_layout.navigatio
 import { Route as LayoutExtractionRouteImport } from "./routes/_layout.extraction";
 import { Route as LayoutDownloadsRouteImport } from "./routes/_layout.downloads";
 import { Route as LayoutFormsIndexRouteImport } from "./routes/_layout/forms/index";
-import { Route as LayoutFormsResultRouteImport } from "./routes/_layout/forms/result";
 import { Route as LayoutAuthTurnstileRouteImport } from "./routes/_layout.auth.turnstile";
 import { Route as LayoutAuthFormRouteImport } from "./routes/_layout.auth.form";
 import { Route as LayoutAuthChallengeRouteImport } from "./routes/_layout.auth.challenge";
 import { Route as LayoutAuthBasicRouteImport } from "./routes/_layout.auth.basic";
+import { Route as LayoutFormsResultSubmissionIdRouteImport } from "./routes/_layout/forms/result.$submissionId";
 
 const LayoutRoute = LayoutRouteImport.update({
   id: "/_layout",
@@ -50,11 +50,6 @@ const LayoutFormsIndexRoute = LayoutFormsIndexRouteImport.update({
   path: "/forms/",
   getParentRoute: () => LayoutRoute,
 } as any);
-const LayoutFormsResultRoute = LayoutFormsResultRouteImport.update({
-  id: "/forms/result",
-  path: "/forms/result",
-  getParentRoute: () => LayoutRoute,
-} as any);
 const LayoutAuthTurnstileRoute = LayoutAuthTurnstileRouteImport.update({
   id: "/auth/turnstile",
   path: "/auth/turnstile",
@@ -75,6 +70,12 @@ const LayoutAuthBasicRoute = LayoutAuthBasicRouteImport.update({
   path: "/auth/basic",
   getParentRoute: () => LayoutRoute,
 } as any);
+const LayoutFormsResultSubmissionIdRoute =
+  LayoutFormsResultSubmissionIdRouteImport.update({
+    id: "/forms/result/$submissionId",
+    path: "/forms/result/$submissionId",
+    getParentRoute: () => LayoutRoute,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
@@ -85,8 +86,8 @@ export interface FileRoutesByFullPath {
   "/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/auth/form": typeof LayoutAuthFormRoute;
   "/auth/turnstile": typeof LayoutAuthTurnstileRoute;
-  "/forms/result": typeof LayoutFormsResultRoute;
   "/forms": typeof LayoutFormsIndexRoute;
+  "/forms/result/$submissionId": typeof LayoutFormsResultSubmissionIdRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
@@ -97,8 +98,8 @@ export interface FileRoutesByTo {
   "/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/auth/form": typeof LayoutAuthFormRoute;
   "/auth/turnstile": typeof LayoutAuthTurnstileRoute;
-  "/forms/result": typeof LayoutFormsResultRoute;
   "/forms": typeof LayoutFormsIndexRoute;
+  "/forms/result/$submissionId": typeof LayoutFormsResultSubmissionIdRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -111,8 +112,8 @@ export interface FileRoutesById {
   "/_layout/auth/challenge": typeof LayoutAuthChallengeRoute;
   "/_layout/auth/form": typeof LayoutAuthFormRoute;
   "/_layout/auth/turnstile": typeof LayoutAuthTurnstileRoute;
-  "/_layout/forms/result": typeof LayoutFormsResultRoute;
   "/_layout/forms/": typeof LayoutFormsIndexRoute;
+  "/_layout/forms/result/$submissionId": typeof LayoutFormsResultSubmissionIdRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -125,8 +126,8 @@ export interface FileRouteTypes {
     | "/auth/challenge"
     | "/auth/form"
     | "/auth/turnstile"
-    | "/forms/result"
-    | "/forms";
+    | "/forms"
+    | "/forms/result/$submissionId";
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
@@ -137,8 +138,8 @@ export interface FileRouteTypes {
     | "/auth/challenge"
     | "/auth/form"
     | "/auth/turnstile"
-    | "/forms/result"
-    | "/forms";
+    | "/forms"
+    | "/forms/result/$submissionId";
   id:
     | "__root__"
     | "/"
@@ -150,8 +151,8 @@ export interface FileRouteTypes {
     | "/_layout/auth/challenge"
     | "/_layout/auth/form"
     | "/_layout/auth/turnstile"
-    | "/_layout/forms/result"
-    | "/_layout/forms/";
+    | "/_layout/forms/"
+    | "/_layout/forms/result/$submissionId";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -203,13 +204,6 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutFormsIndexRouteImport;
       parentRoute: typeof LayoutRoute;
     };
-    "/_layout/forms/result": {
-      id: "/_layout/forms/result";
-      path: "/forms/result";
-      fullPath: "/forms/result";
-      preLoaderRoute: typeof LayoutFormsResultRouteImport;
-      parentRoute: typeof LayoutRoute;
-    };
     "/_layout/auth/turnstile": {
       id: "/_layout/auth/turnstile";
       path: "/auth/turnstile";
@@ -238,6 +232,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LayoutAuthBasicRouteImport;
       parentRoute: typeof LayoutRoute;
     };
+    "/_layout/forms/result/$submissionId": {
+      id: "/_layout/forms/result/$submissionId";
+      path: "/forms/result/$submissionId";
+      fullPath: "/forms/result/$submissionId";
+      preLoaderRoute: typeof LayoutFormsResultSubmissionIdRouteImport;
+      parentRoute: typeof LayoutRoute;
+    };
   }
 }
 
@@ -249,8 +250,8 @@ interface LayoutRouteChildren {
   LayoutAuthChallengeRoute: typeof LayoutAuthChallengeRoute;
   LayoutAuthFormRoute: typeof LayoutAuthFormRoute;
   LayoutAuthTurnstileRoute: typeof LayoutAuthTurnstileRoute;
-  LayoutFormsResultRoute: typeof LayoutFormsResultRoute;
   LayoutFormsIndexRoute: typeof LayoutFormsIndexRoute;
+  LayoutFormsResultSubmissionIdRoute: typeof LayoutFormsResultSubmissionIdRoute;
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
@@ -261,8 +262,8 @@ const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAuthChallengeRoute: LayoutAuthChallengeRoute,
   LayoutAuthFormRoute: LayoutAuthFormRoute,
   LayoutAuthTurnstileRoute: LayoutAuthTurnstileRoute,
-  LayoutFormsResultRoute: LayoutFormsResultRoute,
   LayoutFormsIndexRoute: LayoutFormsIndexRoute,
+  LayoutFormsResultSubmissionIdRoute: LayoutFormsResultSubmissionIdRoute,
 };
 
 const LayoutRouteWithChildren =

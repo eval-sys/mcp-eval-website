@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
+import { submitCustomerForm, type CustomerFormData } from "~/server-functions/customer-form";
+import { AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/_layout/forms/")({
   component: FormInteractionTest,
@@ -29,33 +31,34 @@ function FormInteractionTest() {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     console.log("Form submit handler called");
     e.preventDefault();
     e.stopPropagation();
     setIsSubmitting(true);
+    setError(null);
 
     try {
       console.log("Processing form submission with data:", formData);
-      await new Promise(resolve => setTimeout(resolve, 800));
       
-      // Store form data in sessionStorage and navigate to result page
-      const submissionData = {
-        success: true,
-        timestamp: new Date().toISOString(),
-        formData: { ...formData },
-        url: window.location.href,
-        method: "POST",
-      };
+      // Submit to database using server function
+      const result = await submitCustomerForm({
+        data: formData as CustomerFormData
+      });
       
-      console.log("Storing in sessionStorage:", submissionData);
-      sessionStorage.setItem('formSubmissionData', JSON.stringify(submissionData));
-      
-      console.log("Navigating to result page");
-      navigate({ to: "/forms/result" });
+      if (result.success) {
+        console.log("Form submitted successfully, ID:", result.submissionId);
+        // Navigate to result page with submission ID
+        navigate({ 
+          to: "/forms/result/$submissionId",
+          params: { submissionId: result.submissionId.toString() }
+        });
+      }
     } catch (err) {
       console.error("Form submission failed:", err);
+      setError(err instanceof Error ? err.message : "Failed to submit form. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -176,6 +179,13 @@ function FormInteractionTest() {
         >
           {isSubmitting ? "Submitting..." : "Submit Form"}
         </Button>
+
+        {error && (
+          <div className="p-3 rounded-md flex items-center gap-2 bg-red-50 text-red-700 border border-red-200">
+            <AlertCircle className="h-4 w-4" />
+            <span>{error}</span>
+          </div>
+        )}
       </form>
     </div>
   );
