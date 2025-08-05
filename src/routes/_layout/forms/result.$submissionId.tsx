@@ -26,9 +26,7 @@ function FormResultPage() {
   useEffect(() => {
     async function fetchSubmission() {
       try {
-        const result = await getCustomerSubmission({
-          data: { id: parseInt(submissionId) }
-        });
+        const result = await getCustomerSubmission({ data: { id: parseInt(submissionId) } });
         
         if (result.success && result.submission) {
           setSubmissionData(result.submission);

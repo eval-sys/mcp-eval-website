@@ -44,9 +44,7 @@ function FormInteractionTest() {
       console.log("Processing form submission with data:", formData);
       
       // Submit to database using server function
-      const result = await submitCustomerForm({
-        data: formData as CustomerFormData
-      });
+      const result = await submitCustomerForm({ data: formData as CustomerFormData });
       
       if (result.success) {
         console.log("Form submitted successfully, ID:", result.submissionId);

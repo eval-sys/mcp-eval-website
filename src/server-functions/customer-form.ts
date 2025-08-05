@@ -8,22 +8,22 @@ const customerFormSchema = z.object({
   custname: z.string().min(1, 'Customer name is required').max(255),
   custtel: z.string().min(1, 'Phone number is required').max(50),
   custemail: z.string().email('Invalid email address').max(255),
-  size: z.enum(['small', 'medium', 'large'], {
-    errorMap: () => ({ message: 'Size must be small, medium, or large' })
-  }),
-  delivery: z.enum(['morning', 'afternoon', 'evening'], {
-    errorMap: () => ({ message: 'Delivery time must be morning, afternoon, or evening' })
-  }),
+  size: z.enum(['small', 'medium', 'large']),
+  delivery: z.enum(['morning', 'afternoon', 'evening']),
   comments: z.string().optional(),
 });
 
 export type CustomerFormData = z.infer<typeof customerFormSchema>;
 
 // Server function to submit customer form
-export const submitCustomerForm = createServerFn()
+export const submitCustomerForm = createServerFn({
+  method: 'POST'
+})
   .validator(customerFormSchema)
   .handler(async ({ data }) => {
     try {
+      console.log('Submitting customer form with data:', data);
+      
       // Insert into database
       const [submission] = await db
         .insert(customerSubmissions)
@@ -37,6 +37,8 @@ export const submitCustomerForm = createServerFn()
         })
         .returning();
 
+      console.log('Form saved successfully with ID:', submission.id);
+      
       return {
         success: true,
         submissionId: submission.id,
@@ -44,12 +46,14 @@ export const submitCustomerForm = createServerFn()
       };
     } catch (error) {
       console.error('Error saving customer form:', error);
-      throw new Error('Failed to save form submission');
+      throw new Error('Failed to save form submission: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   });
 
 // Server function to get customer submission by ID
-export const getCustomerSubmission = createServerFn()
+export const getCustomerSubmission = createServerFn({
+  method: 'GET'
+})
   .validator(z.object({
     id: z.number().positive(),
   }))
