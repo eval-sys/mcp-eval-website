@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
-import { TestTube, FileText, Search, Download, Shield, Lock, RefreshCw, Navigation, ShieldCheck } from "lucide-react";
+import { TestTube, FileText, Search, Download, Lock, RefreshCw, Navigation, ShieldCheck } from "lucide-react";
 
 export const Route = createFileRoute("/_layout")({
   component: MainLayout,
@@ -11,7 +11,6 @@ function MainLayout() {
     { to: "/extraction", label: "Element Extraction", icon: Search },
     { to: "/downloads", label: "File Downloads", icon: Download },
     { to: "/auth/basic", label: "Basic Auth", icon: Lock },
-    { to: "/auth/form", label: "Form Login", icon: Shield },
     { to: "/auth/challenge", label: "Challenge Auth", icon: RefreshCw },
     { to: "/auth/turnstile", label: "Turnstile Auth", icon: ShieldCheck },
     { to: "/navigation", label: "Web Navigation", icon: Navigation },

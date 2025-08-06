@@ -21,4 +21,6 @@ dist
 /server/build
 /public/build
 
-.tanstack
+.tanstack.nitro/
+.nitro/
+.tanstack/
